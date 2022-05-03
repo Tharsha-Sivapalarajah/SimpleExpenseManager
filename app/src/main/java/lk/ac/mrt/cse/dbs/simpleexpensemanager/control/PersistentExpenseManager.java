@@ -14,7 +14,7 @@ public class PersistentExpenseManager extends ExpenseManager {
     private DatabaseHelper databaseHelper;
 
     public PersistentExpenseManager(Context context) {
-        
+
         super(context);
         this.databaseHelper = new DatabaseHelper(context);
         setup();
@@ -22,7 +22,6 @@ public class PersistentExpenseManager extends ExpenseManager {
 
     @Override
     public void setup() {
-
         TransactionDAO persistentMemoryTransactionDAO = new PersistentMemoryTransactionDAO( databaseHelper );
         setTransactionsDAO( persistentMemoryTransactionDAO );
 
