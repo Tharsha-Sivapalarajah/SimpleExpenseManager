@@ -29,7 +29,7 @@ public class PersistentMemoryTransactionDAO implements TransactionDAO {
     @Override
     public List<Transaction> getPaginatedTransactionLogs(int limit) {
         List<Transaction> transactions = getAllTransactionLogs();
-
+        
         int size = transactions.size();
         if (size <= limit) {
             return transactions;

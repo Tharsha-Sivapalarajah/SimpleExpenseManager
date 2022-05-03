@@ -35,6 +35,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String ACCOUNT_HOLDER_NAME = "account_holder_name";
     public static final String BALANCE = "balance";
 
+
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, VERSION_NAME);
         this.context=context;

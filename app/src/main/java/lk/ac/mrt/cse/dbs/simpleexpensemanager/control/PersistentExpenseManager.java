@@ -14,7 +14,7 @@ public class PersistentExpenseManager extends ExpenseManager {
     private DatabaseHelper databaseHelper;
 
     public PersistentExpenseManager(Context context) {
-
+        
         super(context);
         this.databaseHelper = new DatabaseHelper(context);
         setup();

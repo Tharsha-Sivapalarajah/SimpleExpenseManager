@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         /*** Setup the persistent storage implementation ***/
         expenseManager = new PersistentExpenseManager(this);
         /*** END ***/
+
     }
 
     /**
