@@ -8,7 +8,7 @@ on:
 
 jobs:
   test:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         
@@ -16,6 +16,9 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v3
+        
+      - name: Make gradle executable
+        run: chmod +x ./gradle
 
       - name: Gradle cache
         uses: gradle/gradle-build-action@v2
@@ -38,7 +41,7 @@ jobs:
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: false
           script: echo "Generated AVD snapshot for caching."
-
+      
       - name: run tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
@@ -46,4 +49,6 @@ jobs:
           force-avd-creation: false
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
-          script: ./gradlew connectedCheck
+          script: ./gradle connectedCheck
+      
+          
