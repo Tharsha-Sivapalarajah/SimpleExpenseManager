@@ -55,6 +55,5 @@ public class ApplicationTest {
 
         assertTrue( AccountNumbersList.contains("TH-6666") );
         assertTrue( AccountNumbersList.contains("TN-5454") );
-
     }
 }
