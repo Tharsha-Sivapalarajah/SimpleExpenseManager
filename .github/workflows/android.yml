@@ -8,7 +8,7 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     strategy:
       matrix:
         
@@ -16,9 +16,6 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v3
-        
-      - name: Make gradle executable
-        run: chmod +x ./gradle
 
       - name: Gradle cache
         uses: gradle/gradle-build-action@v2
@@ -49,6 +46,4 @@ jobs:
           force-avd-creation: false
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
-          script: ./gradle connectedCheck
-      
-          
+          script: ./gradlew connectedCheck
