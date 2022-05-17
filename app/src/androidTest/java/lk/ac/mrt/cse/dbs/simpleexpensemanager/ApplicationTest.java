@@ -84,7 +84,7 @@ public class ApplicationTest {
         }
 
         List<Transaction> TransactionLogs = expenseManager.getTransactionLogs();
-        Transaction TestTransaction = TransactionLogs.get(9);
+        Transaction TestTransaction = TransactionLogs.get(0);
 
         assertEquals(SampleTransaction1.getAccountNo(), TestTransaction.getAccountNo());
         assertEquals(SampleTransaction1.getExpenseType(), TestTransaction.getExpenseType());
