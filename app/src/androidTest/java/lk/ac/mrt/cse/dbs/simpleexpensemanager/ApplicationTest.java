@@ -24,12 +24,18 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.util.List;
+import java.util.Calendar;
 
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.ExpenseManager;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.PersistentExpenseManager;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.Account;
+import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.ExpenseType;
+import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.Transaction;
+import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.exception.InvalidAccountException;
 
 /**
  * <a href="http://d.android.com/tools/testing/testing_android.html">Testing Fundamentals</a>
@@ -38,8 +44,18 @@ import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.Account;
 public class ApplicationTest {
 
     private ExpenseManager expenseManager;
+    private static final Calendar calendar1 = Calendar.getInstance();
+
     private static final Account SampleAccount1 = new Account("TH-6666", "BOC", "S.Tharsha", 70000.00);
     private static final Account SampleAccount2 = new Account("TN-5454", "HNB", "T.Nigitha", 5000.00 );
+
+    static {
+        calendar1.set(2022, 6, 6);
+    }
+
+    private static final Transaction SampleTransaction1 = new Transaction(calendar1.getTime(), "TH-6666", ExpenseType.INCOME, 3000.0);
+
+
 
     @Before
     public void BeforeTestSetUp() {
@@ -60,5 +76,30 @@ public class ApplicationTest {
 
         assertTrue( AccountNumbersList.contains(SampleAccount1.getAccountNo()) );
         assertTrue( AccountNumbersList.contains(SampleAccount2.getAccountNo()) );
+    }
+
+
+    @Test
+    public void AddTransactionTest() {
+
+        try {
+            expenseManager.updateAccountBalance( SampleTransaction1.getAccountNo(), calendar1.get(Calendar.DATE), calendar1.get(Calendar.MONTH), calendar1.get(Calendar.YEAR), SampleTransaction1.getExpenseType(), Double.toString(SampleTransaction1.getAmount()));
+        } catch (InvalidAccountException e) {
+            fail();
+        }
+
+        List<Transaction> TransactionLogs = expenseManager.getTransactionLogs();
+        Transaction TestTransaction = TransactionLogs.get(9);
+
+        Calendar calendar2 = Calendar.getInstance();
+        calendar2.setTime(TestTransaction.getDate());
+
+        assertEquals(calendar1.get(Calendar.DATE), calendar2.get(Calendar.DATE));
+        assertEquals(calendar1.get(Calendar.MONTH), calendar2.get(Calendar.MONTH));
+        assertEquals(calendar1.get(Calendar.YEAR), calendar2.get(Calendar.YEAR));
+
+        assertEquals(SampleTransaction1.getAccountNo(), TestTransaction.getAccountNo());
+        assertEquals(SampleTransaction1.getExpenseType(), TestTransaction.getExpenseType());
+        assertEquals(SampleTransaction1.getAmount(), TestTransaction.getAmount(), 0.01);
     }
 }
