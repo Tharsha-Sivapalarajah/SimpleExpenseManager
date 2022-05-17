@@ -22,12 +22,14 @@ import androidx.test.core.app.ApplicationProvider;
 
 import org.junit.Before;
 import org.junit.Test;
+
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.ExpenseManager;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.PersistentExpenseManager;
+import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.model.Account;
 
 /**
  * <a href="http://d.android.com/tools/testing/testing_android.html">Testing Fundamentals</a>
@@ -36,6 +38,8 @@ import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.PersistentExpenseManager;
 public class ApplicationTest {
 
     private ExpenseManager expenseManager;
+    private static final Account SampleAccount1 = new Account("TH-6666", "BOC", "S.Tharsha", 70000.00);
+    private static final Account SampleAccount2 = new Account("TN-5454", "HNB", "T.Nigitha", 5000.00 );
 
     @Before
     public void BeforeTestSetUp() {
@@ -48,12 +52,13 @@ public class ApplicationTest {
     @Test
     public void AddAccountTest() {
 
-        expenseManager.addAccount("TH-6666", "BOC", "S.Tharsha", 70000.00 );
-        expenseManager.addAccount("TN-5454", "HNB", "T.Nigitha", 5000.00 );
+        expenseManager.addAccount(SampleAccount1.getAccountNo(), SampleAccount1.getBankName(), SampleAccount1.getAccountHolderName(), SampleAccount1.getBalance());
+        expenseManager.addAccount(SampleAccount2.getAccountNo(), SampleAccount2.getBankName(), SampleAccount2.getAccountHolderName(), SampleAccount2.getBalance());
+
 
         List<String> AccountNumbersList = expenseManager.getAccountNumbersList();
 
-        assertTrue( AccountNumbersList.contains("TH-6666") );
-        assertTrue( AccountNumbersList.contains("TN-5454") );
+        assertTrue( AccountNumbersList.contains(SampleAccount1.getAccountNo()) );
+        assertTrue( AccountNumbersList.contains(SampleAccount2.getAccountNo()) );
     }
 }
