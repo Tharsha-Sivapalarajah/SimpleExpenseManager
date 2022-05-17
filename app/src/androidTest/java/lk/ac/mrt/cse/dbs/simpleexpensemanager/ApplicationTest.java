@@ -24,7 +24,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
@@ -48,7 +47,6 @@ public class ApplicationTest {
     public void BeforeTestSetUp() {
 
         Context context = ApplicationProvider.getApplicationContext();
-        assertEquals("lk.ac.mrt.cse.dbs.simpleexpensemanager", context.getPackageName());
         expenseManager = new PersistentExpenseManager(context);
     }
 
