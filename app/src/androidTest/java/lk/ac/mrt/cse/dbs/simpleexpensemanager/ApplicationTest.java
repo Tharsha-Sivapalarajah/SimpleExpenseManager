@@ -64,5 +64,6 @@ public class ApplicationTest {
 
         assertTrue( AccountNumbersList.contains(SampleAccount1.getAccountNo()) );
         assertTrue( AccountNumbersList.contains(SampleAccount2.getAccountNo()) );
+
     }
 }
